@@ -10,25 +10,45 @@ flow:
   workflow:
     - install_postgres:
         do:
-          Integrations.demo.aos.software.install_postgres: []
+          Integrations.demo.aos.software.install_postgres:
+            - username: '${target_host_username}'
+            - password:
+                value: '${target_host_password}'
+                sensitive: true
+            - tomcat_host: '${target_host}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: install_java
     - install_java:
         do:
-          Integrations.demo.aos.software.install_java: []
+          Integrations.demo.aos.software.install_java:
+            - username: '${target_host_username}'
+            - password:
+                value: '${target_host_password}'
+                sensitive: true
+            - tomcat_host: '${target_host}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: install_tomcat
     - install_tomcat:
         do:
-          Integrations.demo.aos.software.install_tomcat: []
+          Integrations.demo.aos.software.install_tomcat:
+            - username: '${target_host_username}'
+            - password:
+                value: '${target_host_password}'
+                sensitive: true
+            - tomcat_host: '${target_host}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: install_aos
     - install_aos:
         do:
-          io.cloudslang.demo.aos.install_aos: []
+          io.cloudslang.demo.aos.install_aos:
+            - username: '${target_host_username}'
+            - password:
+                value: '${target_host_password}'
+                sensitive: true
+            - tomcat_host: '${target_host}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
@@ -39,23 +59,23 @@ extensions:
   graph:
     steps:
       install_postgres:
-        x: 176
-        'y': 136.86666870117188
+        x: 100
+        'y': 150
       install_java:
-        x: 320
-        'y': 151.36666870117188
+        x: 400
+        'y': 150
       install_tomcat:
-        x: 469
-        'y': 184.36666870117188
+        x: 700
+        'y': 150
       install_aos:
-        x: 610
-        'y': 169.36666870117188
+        x: 1000
+        'y': 150
         navigate:
-          1558b58d-f91e-5d56-fc6a-7bc8a8ff608f:
-            targetId: 7d7003e1-45f7-3091-f135-bc5d50463829
+          a4295d22-50c2-07ed-c827-27e2fc98dbe0:
+            targetId: 07ef2f43-67cc-26a9-d69e-9deb7aa14a1e
             port: SUCCESS
     results:
       SUCCESS:
-        7d7003e1-45f7-3091-f135-bc5d50463829:
-          x: 806
-          'y': 106
+        07ef2f43-67cc-26a9-d69e-9deb7aa14a1e:
+          x: 1300
+          'y': 150
